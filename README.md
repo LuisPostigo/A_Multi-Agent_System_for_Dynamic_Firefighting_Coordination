@@ -1,1 +1,72 @@
 # A Multi-Agent System for Dynamic Firefighting Coordination
+
+<div align="center">
+  
+| 🧯 Completion Rate | 👥 Avg. Team Size | 🌲 Avg. Cluster Size | ⏱️ Avg Extinguish Time |
+|-------------------|------------------|----------------------|------------------------|
+| **89.5%**         | **1.17**         | **1.72**             | **8.23 steps**         |
+
+| 🕰️ Most Idle Firefighter | 🚫 Collisions Detected | 🚀 Peak System Throughput |
+|--------------------------|------------------------|----------------------------|
+| **F2 (10 steps)**        | **2 (worst case)**     | **5 fires/timestep**       |
+
+</div>
+
+---
+
+## 🌍 Overview
+
+This simulation models a forest environment with intelligent, decentralized agents working to detect and extinguish wildfires. It includes two types of agents:
+
+- **🚒 Firefighters:** Ground-based agents with limited range and water supply.  
+- **🚁 Drones:** Aerial scouts that detect fires, cluster hotspots, and coordinate task allocation using the **Contract-Net Protocol (CNP)**.
+
+The simulation runs on a grid-based environment using `agentpy`, and tracks dynamic interactions including perception, bidding, movement, collision, and fire suppression—all in real-time.
+
+---
+
+## 🧠 Architecture: Contract-Net Protocol (CNP)
+
+Drones manage the negotiation lifecycle. Firefighters respond with context-aware bids. This results in dynamic, distributed task allocation.
+
+### 🔁 The CNP loop:
+1. **Detection:** Drones patrol and detect fire clusters via BFS.
+2. **Contract Creation:** Each cluster becomes a structured JSON task with a `team_size` based on fire size.
+3. **Bidding:** Firefighters evaluate contracts using a spatial utility model:  
+   `bid = distance_to_fire / (water + ε)`
+4. **Assignment:** The drone assigns the lowest bidders, proportional to the needed team size.
+5. **Execution:** Firefighters navigate, extinguish, and mark contracts complete.
+
+All actions are logged, time-stamped, and stored in `cnp_contract_logs.csv` for analysis.
+
+---
+
+## 📊 Performance Visualizations
+
+Six performance metrics are computed per run and plotted automatically:
+
+| Metric | Visualized As |
+|--------|----------------|
+| 🔥 Response Time | Histogram (fire detection ➝ assignment) |
+| ⏱️ Extinguish Time | Histogram (detection ➝ fire put out) |
+| 💧 Resource Use | Bar plot (team size per fire) |
+| 📦 Task Allocation Efficiency | Line plot (assignments over time) |
+| 🧍‍♂️ Collision Count | Line plot (collisions per timestep) |
+| 📈 System Throughput | Line plot (fires completed per timestep) |
+
+<p align="center">
+  <img src="docs/demo_stats.png" width="700px" />
+</p>
+
+---
+
+## 📽️ Simulation Demo
+
+<!-- Replace this with a recorded GIF or a rendered HTML animation from agentpy -->
+<p align="center">
+  <img src="docs/demo.gif" width="600px" />
+</p>
+
+---
+
+## ⚙️ How to Run

@@ -54,19 +54,6 @@ Six performance metrics are computed per run and plotted automatically:
 | 🧍‍♂️ Collision Count | Line plot (collisions per timestep) |
 | 📈 System Throughput | Line plot (fires completed per timestep) |
 
-<p align="center">
-  <img src="docs/demo_stats.png" width="700px" />
-</p>
-
----
-
-## 📽️ Simulation Demo
-
-<!-- Replace this with a recorded GIF or a rendered HTML animation from agentpy -->
-<p align="center">
-  <img src="docs/demo.gif" width="600px" />
-</p>
-
 ---
 
 ## ⚙️ How to Run

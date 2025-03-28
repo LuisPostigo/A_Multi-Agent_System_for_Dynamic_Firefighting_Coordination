@@ -30,23 +30,111 @@ This simulation models a forest environment with intelligent, decentralized agen
 
 The simulation runs on a grid-based environment using `agentpy`, and tracks dynamic interactions including perception, bidding, movement, collision, and fire suppression—all in real-time.
 
----
+> A high-fidelity simulation of decentralized firefighting using the Contract-Net Protocol (CNP). Agents dynamically coordinate in real time to detect, bid for, and extinguish fires across a forest environment.
 
 ## 🧠 Architecture: Contract-Net Protocol (CNP)
 
-Drones manage the negotiation lifecycle. Firefighters respond with context-aware bids. This results in dynamic, distributed task allocation.
+This simulation implements the Contract-Net Protocol (CNP) as the core coordination mechanism between heterogeneous agents operating in a partially observable, dynamic environment. The roles are clearly partitioned between **drones** (task managers) and **firefighters** (task executors), simulating a distributed negotiation framework that operates under real-time constraints.
 
-### 🔁 The CNP loop:
-1. **Detection:** Drones patrol and detect fire clusters via BFS.
-2. **Contract Creation:** Each cluster becomes a structured JSON task with a `team_size` based on fire size.
-3. **Bidding:** Firefighters evaluate contracts using a spatial utility model:  
-   `bid = distance_to_fire / (water + ε)`
-4. **Assignment:** The drone assigns the lowest bidders, proportional to the needed team size.
-5. **Execution:** Firefighters navigate, extinguish, and mark contracts complete.
+The CNP implementation in this model departs from theoretical idealizations by adapting to **environmental noise**, **resource limitations**, and **asynchronous task feedback**, all while maintaining decentralized decision-making logic.
 
-All actions are logged, time-stamped, and stored in `cnp_contract_logs.csv` for analysis.
 
----
+### 🎯 Design Rationale
+
+At its core, the CNP is designed to solve the dynamic task allocation problem. In this domain, "tasks" correspond to spatially-distributed fire clusters, and "bidders" are mobile agents with varying resource availability and local constraints. The choice of CNP over other coordination mechanisms (e.g., stigmergy, token passing, or central planning) stems from its ability to:
+
+- Allow **parallel bidding** by distributed agents
+- Enable **fine-grained bid evaluation models** (e.g., spatial utility)
+- Maintain **modularity** in negotiation phases
+- Support **asynchronous assignment and execution**, which is critical given varying travel times and local conditions
+
+### 📐 Modular Protocol Phases
+
+The protocol is decomposed into four explicit phases. Each phase has corresponding data structures, JSON communication messages, and logging logic to support full traceability and post-hoc analysis.
+
+### 🔁 The CNP Negotiation Loop
+
+```
+╭──────────────────────────── Forest Grid ─────────────────────────────╮
+│                                                                      │
+│   🔁 Drones Patrol        🔥 Detect Fire at (x,y)                     │
+│       │                        │                                     │
+│       ▼                        ▼                                     │
+│   BFS-based Clustering   →   Cluster C = { (x1,y1), (x2,y2), ... }   │
+│       │                        │                                     │
+│       ▼                        ▼                                     │
+│  Contract Creation:    →    task = {                                 │
+│                             "task_id": ...,                          │
+│                             "location": centroid(C),                 │
+│                             "cluster": C,                            │
+│                             "team_size": ⌈|C|/2⌉,                    │
+│                             "status": "open",                        │
+│                             ...                                      │
+│                           }                                          │
+│       │                        │                                     │
+│       ▼                        ▼                                     │
+│  Append to global contract pool (fire_contracts)                     │
+│                                                                      │
+╰──────────────────────────────────────────────────────────────────────╯
+```
+
+### 📨 Contract Message Structure (JSON-based)
+
+```json
+{
+  "task_id": "fire_42_18_76",
+  "location": [42, 18],
+  "cluster": [[42,18],[42,19],[43,18]],
+  "type": "extinguish_fire",
+  "timestamp": 76,
+  "status": "open",
+  "team_size": 2,
+  "bids": [],
+  "assigned": [],
+  "assign_time": null,
+  "manager": "drone_3"
+}
+```
+
+### 🧮 Bid Evaluation Model (Firefighter Logic)
+
+```
+    bid_value = distance_to_fire / (water_supply + ε)
+```
+
+This approach naturally prioritizes agents that are both **closer** to the fire and **better equipped**, without requiring global optimization. All bids are appended to the contract object and logged.
+
+
+### 🤝 Assignment Protocol (Drone Logic)
+
+```json
+{
+  "event": "assignment",
+  "task_id": "fire_42_18_76",
+  "assigned_to": ["F3", "F5"],
+  "drone_id": "drone_3",
+  "time": 77
+}
+```
+
+### 🚒 Execution and Feedback Loop
+
+```json
+{
+  "event": "complete",
+  "task_id": "fire_42_18_76",
+  "firefighter_id": "F5",
+  "time": 84
+}
+```
+
+### 🧪 Logs and Metrics for Evaluation
+
+- `contract_logs` → creation, bid, assignment, completion
+- `firefighter_debug_logs` → perception events
+- `drone_debug_logs` → cluster detection events
+- `position_logs` → collision detection + movement traces
+
 
 ## 📊 Performance Visualizations
 

@@ -39,7 +39,7 @@ This simulation implements the Contract-Net Protocol (CNP) as the core coordinat
 The CNP implementation in this model departs from theoretical idealizations by adapting to **environmental noise**, **resource limitations**, and **asynchronous task feedback**, all while maintaining decentralized decision-making logic.
 
 
-### 🎯 Design Rationale
+### Design Rationale
 
 At its core, the CNP is designed to solve the dynamic task allocation problem. In this domain, "tasks" correspond to spatially-distributed fire clusters, and "bidders" are mobile agents with varying resource availability and local constraints. The choice of CNP over other coordination mechanisms (e.g., stigmergy, token passing, or central planning) stems from its ability to:
 
@@ -48,11 +48,11 @@ At its core, the CNP is designed to solve the dynamic task allocation problem. I
 - Maintain **modularity** in negotiation phases
 - Support **asynchronous assignment and execution**, which is critical given varying travel times and local conditions
 
-### 📐 Modular Protocol Phases
+### Modular Protocol Phases
 
 The protocol is decomposed into four explicit phases. Each phase has corresponding data structures, JSON communication messages, and logging logic to support full traceability and post-hoc analysis.
 
-### 🔁 The CNP Negotiation Loop
+### The CNP Negotiation Loop
 
 ```
 ╭──────────────────────────── Forest Grid ─────────────────────────────╮
@@ -78,7 +78,7 @@ The protocol is decomposed into four explicit phases. Each phase has correspondi
 ╰──────────────────────────────────────────────────────────────────────╯
 ```
 
-### 📨 Contract Message Structure (JSON-based)
+### Contract Message Structure (JSON-based)
 
 ```json
 {
@@ -96,7 +96,7 @@ The protocol is decomposed into four explicit phases. Each phase has correspondi
 }
 ```
 
-### 🧮 Bid Evaluation Model (Firefighter Logic)
+### Bid Evaluation Model (Firefighter Logic)
 
 ```
     bid_value = distance_to_fire / (water_supply + ε)
@@ -105,7 +105,7 @@ The protocol is decomposed into four explicit phases. Each phase has correspondi
 This approach naturally prioritizes agents that are both **closer** to the fire and **better equipped**, without requiring global optimization. All bids are appended to the contract object and logged.
 
 
-### 🤝 Assignment Protocol (Drone Logic)
+### Assignment Protocol (Drone Logic)
 
 ```json
 {
@@ -117,7 +117,7 @@ This approach naturally prioritizes agents that are both **closer** to the fire 
 }
 ```
 
-### 🚒 Execution and Feedback Loop
+### Execution and Feedback Loop
 
 ```json
 {
@@ -128,7 +128,7 @@ This approach naturally prioritizes agents that are both **closer** to the fire 
 }
 ```
 
-### 🧪 Logs and Metrics for Evaluation
+### Logs and Metrics for Evaluation
 
 - `contract_logs` → creation, bid, assignment, completion
 - `firefighter_debug_logs` → perception events

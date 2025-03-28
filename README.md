@@ -1,5 +1,4 @@
-
-![Visitors](https://visitor-badge.glitch.me/badge?page_id=LuisPostigo.A_Multi-Agent_System_for_Dynamic_Firefighting_Coordination)
+![Repo Views](https://reporoster.com/stats/LuisPostigo/A_Multi-Agent_System_for_Dynamic_Firefighting_Coordination)
 ![GitHub stars](https://img.shields.io/github/stars/LuisPostigo/A_Multi-Agent_System_for_Dynamic_Firefighting_Coordination?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/LuisPostigo/A_Multi-Agent_System_for_Dynamic_Firefighting_Coordination?style=social)
 ![GitHub license](https://img.shields.io/github/license/LuisPostigo/A_Multi-Agent_System_for_Dynamic_Firefighting_Coordination)

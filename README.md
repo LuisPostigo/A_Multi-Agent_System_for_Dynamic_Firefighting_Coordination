@@ -70,3 +70,65 @@ Six performance metrics are computed per run and plotted automatically:
 ---
 
 ## ⚙️ How to Run
+
+Follow these steps to set up and run the project on your local machine:
+
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/LuisPostigo/A_Multi-Agent_System_for_Dynamic_Firefighting_Coordination.git
+cd A_Multi-Agent_System_for_Dynamic_Firefighting_Coordination
+```
+
+---
+
+### 2. Create a Virtual Environment (no conda)
+
+```bash
+python -m venv MAS_Dynamic_Firefighting_Coordination
+```
+
+---
+
+### 3. Activate the Virtual Environment
+
+- **macOS/Linux:**
+  ```bash
+  source MAS_Dynamic_Firefighting_Coordination/bin/activate
+  ```
+
+- **Windows (CMD):**
+  ```cmd
+  MAS_Dynamic_Firefighting_Coordination\Scripts\activate.bat
+  ```
+
+- **Windows (PowerShell):**
+  ```powershell
+  .\MAS_Dynamic_Firefighting_Coordination\Scripts\Activate.ps1
+  ```
+
+---
+
+### 4. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 5. Run the Model
+
+```bash
+python main.py
+```
+
+---
+
+### (Optional) Deactivate the Environment When Done
+
+```bash
+deactivate
+```

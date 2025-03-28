@@ -1,6 +1,8 @@
 # A Multi-Agent System for Dynamic Firefighting Coordination
 
 <div align="center">
+
+![Forest Fire Simulation](assets/model_demo.png)
   
 | 🧯 Completion Rate | 👥 Avg. Team Size | 🌲 Avg. Cluster Size | ⏱️ Avg Extinguish Time |
 |-------------------|------------------|----------------------|------------------------|
